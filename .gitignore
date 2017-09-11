@@ -1,0 +1,9 @@
+# MAC files
+.DS_Store
+
+# IDEA files
+.idea/
+*.iml
+
+# Generated function ZIPs
+zips/
