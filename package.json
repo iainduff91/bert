@@ -1,0 +1,23 @@
+{
+  "name": "bert",
+  "version": "0.0.1",
+  "description": "BERT is Backlog Email Reminder for Trello",
+  "main": "index.js",
+  "dependencies": {
+    "node-trello": "^1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iainduff91/bert.git"
+  },
+  "author": "Iain Duff",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iainduff91/bert/issues"
+  },
+  "homepage": "https://github.com/iainduff91/bert#readme"
+}
