@@ -7,3 +7,6 @@
 
 # Generated function ZIPs
 zips/
+
+# Files for testing using local-lambda
+event-samples/
