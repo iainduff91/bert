@@ -19,22 +19,6 @@ let getBoardInfo = (cb) => {
     });
 };
 
-let getOldBacklogCards = (cb) => {
-    getBacklogListId((err, backlogListId) => {
-        if (err) {
-            return cb(err);
-        }
-
-        getBacklogCards(backlogListId, (err, cards) => {
-            if (err) {
-                return cb(err);
-            }
-
-            return cb(null, cards);
-        });
-    });
-};
-
 let getBacklogListId = (cb) => {
     trello.get(`/1/boards/${BOARD_ID}/lists`, (err, lists) => {
         if (err) {
@@ -83,5 +67,6 @@ let getBacklogCards = (backlogListId, cb) => {
 
 module.exports = {
     getBoardInfo,
-    getOldBacklogCards
+    getBacklogListId,
+    getBacklogCards
 }

@@ -9,15 +9,24 @@ exports.handler = (event, context, callback) => {
         //Get all cards that are over 2 weeks old
         async.waterfall([
             (next) => {
-                //Get all cards that are over 2 weeks old
-                trello.getOldBacklogCards((err, data) => {
+                //Get the list ID for the Backlog column
+                trello.getBacklogListId((err, backlogListId) => {
                     if (err) {
                         return next(err);
                     }
-                    return next(null, data);
+                    return next(null, backlogListId);
+                })
+            },
+            (backlogListId, next) => {
+                //Get all cards that are over 2 weeks old
+                trello.getBacklogCards(backlogListId, (err, cards) => {
+                    if (err) {
+                        return next(err);
+                    }
+                    return next(null, cards);
                 });
             },
-            (next) => {
+            (cards, next) => {
                 //Move them from the Backlog into a new column (Aging Backlog Items)
                 return next();
             },
