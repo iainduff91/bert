@@ -48,7 +48,7 @@ exports.handler = (event, context, callback) => {
             return callback(null, 'Bert has finished, me lord');
         });
 
-    //return trello.getBoardInfo((err, data) => {
+    //return trello.getBoardLists((err, data) => {
     //    if (err) {
     //        return callback(err);
     //    }

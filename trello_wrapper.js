@@ -7,7 +7,8 @@ let trello = new Trello("57a16d18be99f6b5a31d21c8e7c9f940", "4c5db157bae39369aa9
 let datetime = require('node-datetime');
 
 
-let getBoardInfo = (cb) => {
+let getBoardLists = (cb) => {
+    console.log('Retrieving board lists...');
     trello.get('/1/members/me/boards', (err, data) => {
         if (err) {
             console.error(`Unable to retrieve board information: ${err}`);
@@ -66,7 +67,7 @@ let getBacklogCards = (backlogListId, cb) => {
 }
 
 module.exports = {
-    getBoardInfo,
+    getBoardLists,
     getBacklogListId,
     getBacklogCards
 }
