@@ -21,18 +21,40 @@ let getBoardLists = (cb) => {
 };
 
 let getBacklogListId = (cb) => {
+    getListId('Backlog', (err, lists) => {
+        if (err) {
+            return cb(err);
+        }
+        return cb(null, lists);
+    });
+};
+
+let getAgingBacklogListId = (cb) => {
+    getListId('Aging Backlog Items', (err, lists) => {
+        if (err) {
+            return cb(err);
+        }
+        return cb(null, lists);
+    });
+};
+
+let getListId = (listName, cb) => {
     trello.get(`/1/boards/${BOARD_ID}/lists`, (err, lists) => {
         if (err) {
-            console.error('Unable to retrieve backlog list ID');
+            console.error(`Unable to retrieve lists from board ${BOARD_ID}`);
             console.error(err);
             return cb(err);
         }
 
+        console.log(`Successfully retrieved lists for board ${BOARD_ID}`);
+
         for(var list of lists) {
-            if (list.name == "Backlog") {
+            if (list.name == listName) {
+                console.log(`ID for list "${listName}" is: ${list.id}`);
                 return cb(null, list.id);
             }
         }
+        return cb(`Could not find list with name ${listName}`);
     });
 };
 
@@ -64,10 +86,11 @@ let getBacklogCards = (backlogListId, cb) => {
 
         return cb(null, cards);
     });
-}
+};
 
 module.exports = {
     getBoardLists,
     getBacklogListId,
+    getAgingBacklogListId,
     getBacklogCards
 }

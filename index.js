@@ -27,6 +27,15 @@ exports.handler = (event, context, callback) => {
             });
         },
         (cards, next) => {
+            //Get the list ID for the Aging Backlog Items column
+            trello.getAgingBacklogListId((err, listId) => {
+                if (err) {
+                    return next(err);
+                }
+                return next(null, listId, cards);
+            })
+        },
+        (agingBacklogListId, cards, next) => {
             //Move them from the Backlog into a new column (Aging Backlog Items)
             return next();
         },
@@ -48,3 +57,4 @@ exports.handler = (event, context, callback) => {
         return callback(null, 'Bert has finished, me lord');
     });
 }
+
