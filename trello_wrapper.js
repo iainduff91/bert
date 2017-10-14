@@ -84,7 +84,18 @@ let getBacklogCards = (backlogListId, cb) => {
 
         console.log(`Found ${untouchedCards.length} untouched cards`);
 
-        return cb(null, cards);
+        return cb(null, untouchedCards);
+    });
+};
+
+let moveCard = (card, listId, cb) => {
+    trello.put(`/1/cards/${card.id}`, {idList: listId}, (err, card) => {
+        if (err) {
+            console.error(`Unable to move card ${card.id} (${card.name}) to list ID ${listId}`);
+            console.error(err);
+            return cb(err);
+        }
+        return cb();
     });
 };
 
@@ -92,5 +103,6 @@ module.exports = {
     getBoardLists,
     getBacklogListId,
     getAgingBacklogListId,
-    getBacklogCards
+    getBacklogCards,
+    moveCard
 }

@@ -37,7 +37,16 @@ exports.handler = (event, context, callback) => {
         },
         (agingBacklogListId, cards, next) => {
             //Move them from the Backlog into a new column (Aging Backlog Items)
-            return next();
+            async.each(cards, (card, cb) => {
+                trello.moveCard(card, agingBacklogListId, (err) => {
+                    return cb(err);
+                });
+            }, (err) => {
+                if (err) {
+                    return next(err);
+                }
+                return next();
+            });
         },
         (next) => {
             //Insert a "Refine Backlog" ticket into the "Ready" column
